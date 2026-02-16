@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Zidan | Data Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0D1B2A;
+            --deep-blue: #1B263B;
+            --ocean: #415A77;
+            --steel: #778DA9;
+            --ice: #E0E1DD;
+            --white: #FFFFFF;
+            --accent: #2E86AB;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--navy);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(13, 27, 42, 0.08);
+            z-index: 100;
+            padding: 1.5rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--deep-blue);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 5% 80px;
+            position: relative;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 134, 171, 0.05) 0%, rgba(13, 27, 42, 0.08) 100%);
+            clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            letter-spacing: -2px;
+        }
+
+        .hero-content .highlight {
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.4rem;
+            color: var(--ocean);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-content .description {
+            font-size: 1.1rem;
+            color: var(--steel);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(13, 27, 42, 0.08);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--steel);
+            margin-top: 0.5rem;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .visual-box {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--deep-blue) 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(13, 27, 42, 0.2);
+        }
+
+        .visual-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+
+        .code-snippet {
+            font-family: 'Space Mono', monospace;
+            color: white;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .code-line {
+            opacity: 0;
+            animation: fadeInLine 0.5s forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 0.2s; }
+        .code-line:nth-child(2) { animation-delay: 0.4s; }
+        .code-line:nth-child(3) { animation-delay: 0.6s; }
+        .code-line:nth-child(4) { animation-delay: 0.8s; }
+        .code-line:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes fadeInLine {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .code-keyword { color: #7CB9E8; }
+        .code-function { color: #90EE90; }
+        .code-string { color: #FFB6C1; }
+        .code-comment { color: #9CA3AF; opacity: 0.7; }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--ocean);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 134, 171, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--navy);
+            border-color: var(--navy);
+        }
+
+        .btn-secondary:hover {
+            background: var(--navy);
+            color: white;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 100px 5%;
+            background: white;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: rgba(46, 134, 171, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--steel);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            border: 2px solid rgba(13, 27, 42, 0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px rgba(13, 27, 42, 0.12);
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--ocean));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--ocean);
+            background: rgba(13, 27, 42, 0.05);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        /* About/USP Section */
+        .usp-section {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--deep-blue) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .usp-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+
+        .usp-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .usp-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .usp-content .accent-text {
+            color: #7CB9E8;
+        }
+
+        .usp-content p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .usp-features {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .usp-feature {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .usp-feature:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(10px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(124, 185, 232, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 5%;
+            background: linear-gradient(to bottom, #FFFFFF 0%, #F5F7FA 100%);
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(13, 27, 42, 0.08);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            transition: all 0.4s;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(13, 27, 42, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .project-visual {
+            background: linear-gradient(135deg, var(--ocean), var(--accent));
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+
+        .project-icon {
+            font-size: 5rem;
+            opacity: 0.3;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-content {
+            padding: 3rem;
+        }
+
+        .project-badge {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            background: rgba(46, 134, 171, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .project-metrics {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(13, 27, 42, 0.08);
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--steel);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .metric-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .project-content p {
+            color: var(--steel);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            background: rgba(13, 27, 42, 0.05);
+            color: var(--navy);
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, #F5F7FA 0%, #E0E1DD 100%);
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-container h2 {
+            font-size: 3rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .contact-container p {
+            font-size: 1.2rem;
+            color: var(--steel);
+            margin-bottom: 3rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 1.2rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .contact-btn.email {
+            background: var(--accent);
+            color: white;
+        }
+
+        .contact-btn.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .contact-btn.linkedin {
+            background: #0077B5;
+            color: white;
+        }
+
+        .contact-btn.github {
+            background: var(--navy);
+            color: white;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 27, 42, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            background: var(--navy);
+            color: white;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-container,
+            .usp-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">AZ</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Building <span class="highlight">Data Systems</span> That Drive Business Growth</h1>
+                <p class="subtitle">Data Engineer | Business Growth Architect</p>
+                <p class="description">
+                    I don't just build data pipelines—I build revenue engines. Every technical decision is evaluated through the lens of business impact: increased revenue, reduced costs, and competitive advantages.
+                </p>
+
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects →</a>
+                    <a href="#contact" class="btn btn-secondary">Let's Talk</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-label">Training Hours</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Pro Certifications</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">Technologies</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-box">
+                    <div class="code-snippet">
+                        <div class="code-line"><span class="code-keyword">class</span> <span class="code-function">DataEngineer</span>:</div>
+                        <div class="code-line">    <span class="code-keyword">def</span> <span class="code-function">solve</span>(business_problem):</div>
+                        <div class="code-line">        pipeline = <span class="code-function">design_etl</span>()</div>
+                        <div class="code-line">        insights = <span class="code-function">analyze_data</span>()</div>
+                        <div class="code-line">        <span class="code-keyword">return</span> <span class="code-string">"Measurable ROI"</span></div>
+                        <div class="code-line"></div>
+                        <div class="code-line"><span class="code-comment"># Business-driven solutions</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">TECHNICAL STACK</span>
+                <h2 class="section-title">Skills That Drive Value</h2>
+                <p class="section-subtitle">Comprehensive expertise across modern data engineering technologies</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <h3>Data Engineering</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">ETL/ELT</span>
+                        <span class="skill-tag">Airflow</span>
+                        <span class="skill-tag">Kafka</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">☁️</div>
+                    <h3>Cloud & Big Data</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">Big Data</span>
+                        <span class="skill-tag">Deployment</span>
+                        <span class="skill-tag">Scalability</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🗄️</div>
+                    <h3>Database Systems</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">RDBMS</span>
+                        <span class="skill-tag">DBA</span>
+                        <span class="skill-tag">Warehousing</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">📊</div>
+                    <h3>BI & Analytics</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Cognos</span>
+                        <span class="skill-tag">Looker</span>
+                        <span class="skill-tag">Dashboards</span>
+                        <span class="skill-tag">Viz</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>DevOps & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Shell</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🤖</div>
+                    <h3>Emerging Tech</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AI Integration</span>
+                        <span class="skill-tag">ML Pipelines</span>
+                        <span class="skill-tag">Prompting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP/About Section -->
+    <section class="usp-section" id="about">
+        <div class="usp-container">
+            <div class="usp-content">
+                <h2>More Than Just a <span class="accent-text">Technical Expert</span></h2>
+                <p>
+                    While many data engineers focus solely on technical implementation, I bridge the gap between engineering excellence and business outcomes.
+                </p>
+                <p>
+                    I speak two languages fluently: the language of code and the language of business. Every data pipeline I design, every database I optimize, and every dashboard I create has one goal: to generate measurable business value.
+                </p>
+            </div>
+
+            <div class="usp-features">
+                <div class="usp-feature">
+                    <div class="feature-icon">💼</div>
+                    <div class="feature-content">
+                        <h4>Business-First Mindset</h4>
+                        <p>Every technical decision evaluated through ROI lens—driving revenue and reducing costs</p>
+                    </div>
+                </div>
+
+                <div class="usp-feature">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-content">
+                        <h4>ROI-Focused Engineering</h4>
+                        <p>Building systems that justify their cost through measurable business impact</p>
+                    </div>
+                </div>
+
+                <div class="usp-feature">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-content">
+                        <h4>Growth-Oriented Solutions</h4>
+                        <p>Scalable architectures designed to grow with your business, not against it</p>
+                    </div>
+                </div>
+
+                <div class="usp-feature">
+                    <div class="feature-icon">🌍</div>
+                    <div class="feature-content">
+                        <h4>Bilingual Professional</h4>
+                        <p>Fluent in English and Arabic—bridging MENA markets and global teams</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">PORTFOLIO</span>
+                <h2 class="section-title">Business Impact Through Data</h2>
+                <p class="section-subtitle">Real projects solving real business problems</p>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-visual">
+                    <div class="project-icon">📊</div>
+                </div>
+                <div class="project-content">
+                    <span class="project-badge">E-Commerce Analytics</span>
+                    <h3>Revenue Intelligence Dashboard</h3>
+                    
+                    <div class="project-metrics">
+                        <div class="metric-item">
+                            <span class="metric-label">Business Impact</span>
+                            <span class="metric-value">+23%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Time Saved</span>
+                            <span class="metric-value">15 hrs/wk</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Cost Savings</span>
+                            <span class="metric-value">$12K/yr</span>
+                        </div>
+                    </div>
+
+                    <p><strong>Challenge:</strong> E-commerce company lacked real-time visibility into revenue trends, leading to missed opportunities.</p>
+                    <p><strong>Solution:</strong> Built automated ETL pipeline integrating multiple data sources, creating real-time dashboard identifying revenue trends and optimization opportunities.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Airflow</span>
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">Looker</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-visual">
+                    <div class="project-icon">⚡</div>
+                </div>
+                <div class="project-content">
+                    <span class="project-badge">Infrastructure Optimization</span>
+                    <h3>Cost-Optimized Data Warehouse</h3>
+                    
+                    <div class="project-metrics">
+                        <div class="metric-item">
+                            <span class="metric-label">Cost Reduction</span>
+                            <span class="metric-value">-45%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Performance</span>
+                            <span class="metric-value">3x Faster</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Scalability</span>
+                            <span class="metric-value">10x Data</span>
+                        </div>
+                    </div>
+
+                    <p><strong>Challenge:</strong> Growing startup facing skyrocketing cloud costs as data volume increased.</p>
+                    <p><strong>Solution:</strong> Redesigned warehouse architecture with intelligent partitioning, query optimization, and automated scaling policies.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">Azure Synapse</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Optimization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-visual">
+                    <div class="project-icon">🎯</div>
+                </div>
+                <div class="project-content">
+                    <span class="project-badge">Customer Intelligence</span>
+                    <h3>Predictive Analytics Pipeline</h3>
+                    
+                    <div class="project-metrics">
+                        <div class="metric-item">
+                            <span class="metric-label">Retention</span>
+                            <span class="metric-value">+18%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">87%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Revenue Impact</span>
+                            <span class="metric-value">$150K</span>
+                        </div>
+                    </div>
+
+                    <p><strong>Challenge:</strong> SaaS company experiencing high churn without understanding risk factors.</p>
+                    <p><strong>Solution:</strong> Developed ML-powered pipeline analyzing usage patterns, predicting churn risk, and triggering automated retention campaigns.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">ML</span>
+                        <span class="tech-tag">Kafka</span>
+                        <span class="tech-tag">Airflow</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2>Let's Create Business Value Together</h2>
+            <p>Ready to turn your data into a competitive advantage? Let's discuss how I can help drive your business forward.</p>
+
+            <div class="contact-buttons">
+                <a href="mailto:info@abdullahzidan.me" class="contact-btn email">
+                    <span>📧</span>
+                    Email Me
+                </a>
+                <a href="https://wa.me/201094679462" class="contact-btn whatsapp" target="_blank">
+                    <span>📱</span>
+                    WhatsApp
+                </a>
+                <a href="https://www.linkedin.com/in/abdullahmzidan/" class="contact-btn linkedin" target="_blank">
+                    <span>💼</span>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/zidjr" class="contact-btn github" target="_blank">
+                    <span>💻</span>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Abdullah Zidan. All rights reserved.</p>
+        <p>📍 Zagazig, Egypt | 📧 zidjr13@gmail.com | 📱 +20 109 467 9462</p>
+        <p>Building data systems that drive measurable business value 🚀</p>
+    </footer>
+</body>
+</html>
